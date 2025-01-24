@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model derived_actor {
+  id         Int     @id
+  name_kanji String? @db.VarChar
+  name_kana  String? @db.VarChar
+}
+
+model derived_actress {
+  id          Int     @id
+  name_romaji String? @db.VarChar
+  image_url   String? @db.VarChar
+  name_kanji  String? @db.VarChar
+  name_kana   String? @db.VarChar
+}
+
+model derived_author {
+  id         Int     @id
+  name_kanji String? @db.VarChar
+  name_kana  String? @db.VarChar
+}
+
+model derived_category {
+  id      Int     @id
+  name_en String? @db.VarChar
+  name_ja String? @db.VarChar
+}
+
+model derived_director {
+  id          Int     @id
+  name_kanji  String? @db.VarChar
+  name_kana   String? @db.VarChar
+  name_romaji String? @db.VarChar
+}
+
+model derived_label {
+  id      Int     @id
+  name_en String? @db.VarChar
+  name_ja String? @db.VarChar
+}
+
+model derived_maker {
+  id      Int     @id
+  name_en String? @db.VarChar
+  name_ja String? @db.VarChar
+}
+
+model derived_series {
+  id      Int     @id
+  name_en String? @db.VarChar
+  name_ja String? @db.VarChar
+}
+
+model derived_site {
+  id   Int    @id(map: "derived_video_site_pkey")
+  name String @db.VarChar
+}
+
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model derived_video {
+  content_id          String    @db.VarChar
+  dvd_id              String?   @db.VarChar
+  title_en            String?   @db.VarChar
+  title_ja            String?   @db.VarChar
+  comment_en          String?   @db.VarChar
+  comment_ja          String?   @db.VarChar
+  runtime_mins        Int?
+  release_date        DateTime? @db.Date
+  sample_url          String?   @db.VarChar
+  maker_id            Int?
+  label_id            Int?
+  series_id           Int?
+  jacket_full_url     String?   @db.VarChar
+  jacket_thumb_url    String?   @db.VarChar
+  gallery_full_first  String?   @db.VarChar
+  gallery_full_last   String?   @db.VarChar
+  gallery_thumb_first String?   @db.VarChar
+  gallery_thumb_last  String?   @db.VarChar
+  site_id             Int
+  service_code        String    @db.VarChar
+
+  @@id([content_id, service_code])
+  @@index([gallery_thumb_first])
+  @@index([label_id])
+  @@index([maker_id])
+  @@index([sample_url])
+  @@index([series_id])
+}
+
+model derived_video_actor {
+  content_id   String    @db.VarChar
+  actor_id     Int
+  ordinality   Int?
+  release_date DateTime? @db.Date
+
+  @@id([content_id, actor_id])
+  @@index([actor_id])
+}
+
+model derived_video_actress {
+  content_id   String    @db.VarChar
+  actress_id   Int
+  ordinality   Int?
+  release_date DateTime? @db.Date
+
+  @@id([content_id, actress_id])
+  @@index([actress_id])
+}
+
+model derived_video_author {
+  content_id String @db.VarChar
+  author_id  Int
+
+  @@id([content_id, author_id])
+  @@index([author_id])
+}
+
+model derived_video_category {
+  content_id   String    @db.VarChar
+  category_id  Int
+  release_date DateTime? @db.Date
+
+  @@id([content_id, category_id])
+  @@index([category_id])
+}
+
+model derived_video_director {
+  content_id  String @db.VarChar
+  director_id Int
+
+  @@id([content_id, director_id])
+  @@index([director_id])
+}
+
+model machine_translation {
+  id        Int      @id @default(autoincrement())
+  source_ja String   @db.VarChar
+  target_en String   @db.VarChar
+  timestamp DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model source_dmm_histrion {
+  id         Int      @id
+  name_kanji String?  @db.VarChar
+  created    DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model source_dmm_trailer {
+  content_id String   @id @db.VarChar
+  url        String?  @db.VarChar
+  timestamp  DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model source_dmm_video_histrion {
+  histrion_id Int
+  timestamp   DateTime @default(now()) @db.Timestamptz(6)
+  content_id  String   @db.VarChar
+
+  @@id([content_id, histrion_id])
+}
