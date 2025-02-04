@@ -1,10 +1,13 @@
-# Nuxt Minimal Starter
+# JAV-PG-LIB
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+顾名思义，一个基于 PostgreSQL 的 JAV 元数据库。目前的开发目标是可用。
 
-## 数据
+## 获取数据
+
+数据来源于[R18.dev](https://r18.dev/)，目前该网站保留近 90 天版本数据，每周二更新一次，获取最新的数据[https://r18.dev/dumps/latest](https://r18.dev/dumps/latest)，历史版本[https://r18.dev/dumps](https://r18.dev/dumps)
 
 ```bash
+# 导入数据
 psql -d dbname -U username -f file.sql
 ```
 
@@ -13,17 +16,7 @@ psql -d dbname -U username -f file.sql
 Make sure to install dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -31,17 +24,7 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
@@ -49,33 +32,13 @@ bun run dev
 Build the application for production:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
 Locally preview production build:
 
 ```bash
-# npm
-npm run preview
-
-# pnpm
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
