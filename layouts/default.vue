@@ -4,7 +4,7 @@
     <NLayoutContent>
       <slot />
     </NLayoutContent>
-    <NLayoutFooter position="absolute">成府路</NLayoutFooter>
+    <NLayoutFooter>成府路</NLayoutFooter>
   </NLayout>
 </template>
 
