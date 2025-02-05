@@ -21,9 +21,16 @@ export default defineEventHandler(async (event) => {
       },
       site_id: 2,
     },
-    orderBy: [{ release_date: 'desc' }, { dvd_id: 'asc' }],
+    orderBy: [{ release_date: 'desc' }, { dvd_id: 'asc' }, { content_id: 'asc' }],
     skip: (page - 1) * pageSize,
     take: pageSize,
+    // select: {
+    //   content_id: true,
+    //   dvd_id: true,
+    //   title_ja: true,
+    //   release_date: true,
+    //   jacket_full_url: true,
+    // },
   });
 
   return {

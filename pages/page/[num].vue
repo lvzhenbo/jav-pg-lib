@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <NGrid x-gap="12" :y-gap="8" :cols="4">
+    <NGrid v-if="status === 'success'" x-gap="12" :y-gap="8" :cols="4">
       <NGi v-for="item in data?.data" :key="item.content_id">
         <NCard :title="item.title_ja || '无标题'" tag="a" hoverable size="small">
           <template #cover>
@@ -18,7 +18,7 @@
         </NCard>
       </NGi>
     </NGrid>
-    <div class="flex justify-center mt-4">
+    <div v-if="status === 'success'" class="flex justify-center mt-4">
       <NPagination
         v-model:page="page"
         :item-count="data?.total"
@@ -27,6 +27,22 @@
         @update:page="handlePageChange"
       />
     </div>
+    <NGrid v-else x-gap="12" :y-gap="8" :cols="4">
+      <NGi v-for="item in 30" :key="item">
+        <NCard size="small">
+          <template #cover>
+            <NSkeleton height="350px" />
+          </template>
+          <template #header>
+            <NSkeleton text />
+          </template>
+          <div class="flex justify-between">
+            <NSkeleton text class="!w-16" />
+            <NSkeleton text class="!w-20" />
+          </div>
+        </NCard>
+      </NGi>
+    </NGrid>
   </div>
 </template>
 
@@ -35,12 +51,24 @@
 
   const route = useRoute();
   const router = useRouter();
-  const { data } = await useFetch('/api/video/page', { query: { page: route.params.num } });
-  const page = ref(1);
+  const page = ref(Number(route.params.num));
+  const { data, status, error } = await useFetch('/api/video/page', {
+    query: { page: page.value },
+    lazy: true,
+  });
+  const message = useMessage();
 
-  onMounted(() => {
-    page.value = Number(route.params.num);
-    console.log(data.value);
+  watch(status, (val) => {
+    console.log(val);
+  });
+
+  watch(data, (val) => {
+    console.log(val);
+  });
+
+  watch(error, (val) => {
+    console.error(val);
+    message.error(JSON.stringify(val));
   });
 
   const handlePageChange = (page: number) => {

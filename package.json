@@ -13,14 +13,14 @@
     "@vueuse/core": "^12.5.0",
     "date-fns": "^4.1.0",
     "naive-ui": "^2.41.0",
-    "nuxt": "^3.15.4",
+    "nuxt": "^3.15.2",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
     "@bg-dev/nuxt-naiveui": "2.0.0-rc.3",
     "@nuxt/eslint": "^1.0.0",
-    "@prisma/client": "^6.3.0",
+    "@prisma/client": "^6.3.1",
     "@prisma/nuxt": "^0.3.0",
     "@tailwindcss/vite": "^4.0.3",
     "@vue/eslint-config-prettier": "^10.2.0",

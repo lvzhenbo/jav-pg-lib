@@ -1,8 +1,10 @@
 <template>
   <NaiveConfig inline-theme-disabled :locale="zhCN">
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <NMessageProvider>
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </NMessageProvider>
   </NaiveConfig>
 </template>
 

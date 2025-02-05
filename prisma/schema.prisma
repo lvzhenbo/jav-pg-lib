@@ -50,6 +50,8 @@ model derived_maker {
   id      Int     @id
   name_en String? @db.VarChar
   name_ja String? @db.VarChar
+
+  videos derived_video[]
 }
 
 model derived_series {
@@ -85,6 +87,8 @@ model derived_video {
   gallery_thumb_last  String?   @db.VarChar
   site_id             Int
   service_code        String    @db.VarChar
+
+  maker derived_maker? @relation(fields: [maker_id], references: [id])
 
   @@id([content_id, service_code])
   @@index([gallery_thumb_first])
