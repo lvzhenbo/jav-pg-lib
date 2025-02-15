@@ -1,5 +1,8 @@
 <template>
   <NaiveConfig inline-theme-disabled :locale="zhCN">
+    <NLoadingBarProvider>
+      <NaiveLoadingBar navigation />
+    </NLoadingBarProvider>
     <NMessageProvider>
       <NuxtLayout>
         <NuxtPage />

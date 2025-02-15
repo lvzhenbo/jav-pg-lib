@@ -9,7 +9,7 @@ const prismaClient = `prisma${path.sep}client`;
 
 const prismaClientIndexBrowser = resolve('@prisma/client/index-browser').replace(
   `@${prismaClient}`,
-  `.${prismaClient}`
+  `.${prismaClient}`,
 );
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
