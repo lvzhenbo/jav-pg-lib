@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <div v-if="status === 'success'" class="flex justify-center mb-4">
+    <div class="flex justify-center mb-4">
       <NPagination
         v-model:page="page"
         :item-count="data?.total"
@@ -9,9 +9,11 @@
         @update:page="handlePageChange"
       />
     </div>
-    <NGrid v-if="status === 'success'" x-gap="12" :y-gap="8" :cols="4">
+    <NGrid x-gap="12" :y-gap="8" :cols="4">
       <NGi v-for="item in data?.data" :key="item.content_id">
-        <NuxtLink :to="{ name: 'video-id', params: { id: item.content_id } }">
+        <NuxtLink
+          :to="{ name: 'video-type-id', params: { id: item.content_id, type: item.service_code } }"
+        >
           <NCard :title="item.title_ja || '无标题'" hoverable size="small">
             <template #cover>
               <NImage
@@ -29,7 +31,7 @@
         </NuxtLink>
       </NGi>
     </NGrid>
-    <div v-if="status === 'success'" class="flex justify-center mt-4">
+    <div class="flex justify-center mt-4">
       <NPagination
         v-model:page="page"
         :item-count="data?.total"
@@ -38,22 +40,6 @@
         @update:page="handlePageChange"
       />
     </div>
-    <NGrid v-else x-gap="12" :y-gap="8" :cols="4">
-      <NGi v-for="item in 30" :key="item">
-        <NCard size="small">
-          <template #cover>
-            <NSkeleton height="350px" />
-          </template>
-          <template #header>
-            <NSkeleton text />
-          </template>
-          <div class="flex justify-between">
-            <NSkeleton text class="!w-16" />
-            <NSkeleton text class="!w-20" />
-          </div>
-        </NCard>
-      </NGi>
-    </NGrid>
   </div>
 </template>
 
@@ -63,23 +49,17 @@
   const route = useRoute();
   const router = useRouter();
   const page = ref(Number(route.params.num));
-  const { data, status, error } = await useFetch('/api/video/page', {
+  const { data } = await useFetch('/api/video/page', {
     query: { page: page.value },
-    lazy: true,
-  });
-  const message = useMessage();
-
-  watch(status, (val) => {
-    console.log(val);
   });
 
-  watch(data, (val) => {
-    console.log(val);
+  onMounted(() => {
+    console.log(data.value);
   });
 
-  watch(error, (val) => {
-    console.error(val);
-    message.error(JSON.stringify(val));
+  watch(route, (val) => {
+    if (val.name !== 'page-num') return;
+    page.value = Number(val.params.num);
   });
 
   const handlePageChange = (page: number) => {

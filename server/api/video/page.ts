@@ -24,13 +24,14 @@ export default defineEventHandler(async (event) => {
     orderBy: [{ release_date: 'desc' }, { dvd_id: 'asc' }, { content_id: 'asc' }],
     skip: (page - 1) * pageSize,
     take: pageSize,
-    // select: {
-    //   content_id: true,
-    //   dvd_id: true,
-    //   title_ja: true,
-    //   release_date: true,
-    //   jacket_full_url: true,
-    // },
+    select: {
+      content_id: true,
+      dvd_id: true,
+      title_ja: true,
+      release_date: true,
+      jacket_full_url: true,
+      service_code: true,
+    },
   });
 
   return {

@@ -5,7 +5,7 @@
     </NLoadingBarProvider>
     <NMessageProvider>
       <NuxtLayout>
-        <NuxtPage />
+        <NuxtPage :keepalive="{ max: 10 }" />
       </NuxtLayout>
     </NMessageProvider>
   </NaiveConfig>
