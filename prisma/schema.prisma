@@ -19,6 +19,8 @@ model derived_actress {
   image_url   String? @db.VarChar
   name_kanji  String? @db.VarChar
   name_kana   String? @db.VarChar
+
+  videos derived_video_actress[]
 }
 
 model derived_author {
@@ -44,6 +46,8 @@ model derived_label {
   id      Int     @id
   name_en String? @db.VarChar
   name_ja String? @db.VarChar
+
+  videos derived_video[]
 }
 
 model derived_maker {
@@ -58,6 +62,8 @@ model derived_series {
   id      Int     @id
   name_en String? @db.VarChar
   name_ja String? @db.VarChar
+
+  videos derived_video[]
 }
 
 model derived_site {
@@ -67,7 +73,7 @@ model derived_site {
 
 /// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model derived_video {
-  content_id          String    @db.VarChar
+  content_id          String    @unique @db.VarChar
   dvd_id              String?   @db.VarChar
   title_en            String?   @db.VarChar
   title_ja            String?   @db.VarChar
@@ -88,7 +94,11 @@ model derived_video {
   site_id             Int
   service_code        String    @db.VarChar
 
-  maker derived_maker? @relation(fields: [maker_id], references: [id])
+  actors    derived_video_actor[]
+  actresses derived_video_actress[]
+  maker     derived_maker?          @relation(fields: [maker_id], references: [id])
+  label     derived_label?          @relation(fields: [label_id], references: [id])
+  series    derived_series?         @relation(fields: [series_id], references: [id])
 
   @@id([content_id, service_code])
   @@index([gallery_thumb_first])
@@ -104,6 +114,8 @@ model derived_video_actor {
   ordinality   Int?
   release_date DateTime? @db.Date
 
+  video derived_video @relation(fields: [content_id], references: [content_id])
+
   @@id([content_id, actor_id])
   @@index([actor_id])
 }
@@ -113,6 +125,9 @@ model derived_video_actress {
   actress_id   Int
   ordinality   Int?
   release_date DateTime? @db.Date
+
+  video   derived_video   @relation(fields: [content_id], references: [content_id])
+  actress derived_actress @relation(fields: [actress_id], references: [id])
 
   @@id([content_id, actress_id])
   @@index([actress_id])

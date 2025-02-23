@@ -11,9 +11,7 @@
     </div>
     <NGrid x-gap="12" :y-gap="8" :cols="4">
       <NGi v-for="item in data?.data" :key="item.content_id">
-        <NuxtLink
-          :to="{ name: 'video-type-id', params: { id: item.content_id, type: item.service_code } }"
-        >
+        <NuxtLink :to="{ name: 'video-id', params: { id: item.content_id } }">
           <NCard :title="item.title_ja || '无标题'" hoverable size="small">
             <template #cover>
               <NImage
@@ -52,6 +50,7 @@
   const { data } = await useFetch('/api/video/page', {
     query: { page: page.value },
   });
+  const scrollToTop = inject(scrollToTopKey);
 
   onMounted(() => {
     console.log(data.value);
@@ -64,6 +63,7 @@
 
   const handlePageChange = (page: number) => {
     router.push(`/page/${page}`);
+    if (scrollToTop) scrollToTop();
   };
 </script>
 

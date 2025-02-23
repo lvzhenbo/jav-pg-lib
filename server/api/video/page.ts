@@ -30,7 +30,6 @@ export default defineEventHandler(async (event) => {
       title_ja: true,
       release_date: true,
       jacket_full_url: true,
-      service_code: true,
     },
   });
 

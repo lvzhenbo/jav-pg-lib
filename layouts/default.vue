@@ -17,9 +17,13 @@
 <script setup lang="ts">
   import type { LayoutContentInst } from 'naive-ui';
 
-  const route = useRoute();
+  // const route = useRoute();
   const contentRef = ref<LayoutContentInst | null>(null);
-  watch(route, () => {
+  // watch(route, () => {
+  //   contentRef.value?.scrollTo({ top: 0 });
+  // });
+
+  provide(scrollToTopKey, () => {
     contentRef.value?.scrollTo({ top: 0 });
   });
 </script>
