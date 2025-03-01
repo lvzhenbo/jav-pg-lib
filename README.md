@@ -7,6 +7,10 @@
 数据来源于[R18.dev](https://r18.dev/)，目前该网站保留近 90 天版本数据，每周二更新一次，获取最新的数据[https://r18.dev/dumps/latest](https://r18.dev/dumps/latest)，历史版本[https://r18.dev/dumps](https://r18.dev/dumps)
 
 ```bash
+# 删除现有数据库
+psql -U username -c "DROP DATABASE IF EXISTS dbname;"
+# 创建新的数据库
+psql -U username -c "CREATE DATABASE dbname;"
 # 导入数据
 psql -d dbname -U username -f file.sql
 ```

@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -24,12 +24,12 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.1.0",
-    "@tailwindcss/vite": "^4.0.8",
+    "@tailwindcss/vite": "^4.0.9",
     "@vue/eslint-config-prettier": "^10.2.0",
     "eslint": "^9.21.0",
-    "tailwindcss": "^4.0.8",
-    "typescript": "^5.7.3",
-    "vue-tsc": "^2.2.2"
+    "tailwindcss": "^4.0.9",
+    "typescript": "^5.8.2",
+    "vue-tsc": "^2.2.4"
   },
   "packageManager": "pnpm@10.2.0+sha512.0d27364e0139c6aadeed65ada153135e0ca96c8da42123bd50047f961339dc7a758fc2e944b428f52be570d1bd3372455c1c65fa2e7aa0bfbf931190f9552001",
   "pnpm": {
