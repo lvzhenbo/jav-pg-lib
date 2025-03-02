@@ -5,11 +5,12 @@
         v-model:page="page"
         :item-count="data?.total"
         :page-size="30"
-        show-quick-jumper
+        size="small"
+        :show-quick-jumper="width >= 640"
         @update:page="handlePageChange"
       />
     </div>
-    <NGrid x-gap="12" :y-gap="8" :cols="4">
+    <NGrid x-gap="12" :y-gap="8" cols="1 m:2 l:3 xl:4 xxl:5" responsive="screen">
       <NGi v-for="item in data?.data" :key="item.content_id">
         <NuxtLink :to="{ name: 'video-id', params: { id: item.content_id } }">
           <NCard :title="item.title_ja || '无标题'" hoverable size="small">
@@ -34,7 +35,8 @@
         v-model:page="page"
         :item-count="data?.total"
         :page-size="30"
-        show-quick-jumper
+        size="small"
+        :show-quick-jumper="width >= 640"
         @update:page="handlePageChange"
       />
     </div>
@@ -50,6 +52,7 @@
   const { data } = await useFetch('/api/video/page', {
     query: { page: page.value },
   });
+  const { width } = useWindowSize();
   const scrollToTop = inject(scrollToTopKey);
 
   onMounted(() => {
