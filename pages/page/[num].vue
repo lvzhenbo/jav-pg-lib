@@ -10,8 +10,10 @@
         @update:page="handlePageChange"
       />
     </div>
-    <NGrid x-gap="12" :y-gap="8" cols="1 m:2 l:3 xl:4 xxl:5" responsive="screen">
-      <NGi v-for="item in data?.data" :key="item.content_id">
+    <div
+      class="grid 3xl:grid-cols-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-x-3 gap-y-2"
+    >
+      <div v-for="item in data?.data" :key="item.content_id">
         <NuxtLink :to="{ name: 'video-id', params: { id: item.content_id } }">
           <NCard :title="item.title_ja || '无标题'" hoverable size="small">
             <template #cover>
@@ -28,8 +30,8 @@
             </div>
           </NCard>
         </NuxtLink>
-      </NGi>
-    </NGrid>
+      </div>
+    </div>
     <div class="flex justify-center mt-4">
       <NPagination
         v-model:page="page"

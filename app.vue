@@ -26,11 +26,12 @@
 
   const { colorModePreference } = useNaiveColorMode();
   const isDark = usePreferredDark();
-  const isSecureContext = window?.isSecureContext;
+  const isSecureContext = ref(true);
   const theme = ref(lightTheme);
 
   onMounted(() => {
     theme.value = isDark.value ? darkTheme : lightTheme;
+    isSecureContext.value = window.isSecureContext;
   });
 
   watch(isDark, () => {
