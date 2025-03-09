@@ -14,24 +14,24 @@
     "@juggle/resize-observer": "^3.4.0",
     "@prisma/client": "^6.4.1",
     "@prisma/nuxt": "^0.3.0",
-    "@vueuse/core": "^12.7.0",
-    "@vueuse/nuxt": "^12.7.0",
+    "@vueuse/core": "^12.8.2",
+    "@vueuse/nuxt": "^12.8.2",
     "date-fns": "^4.1.0",
     "naive-ui": "^2.41.0",
-    "nuxt": "^3.15.4",
+    "nuxt": "^3.16.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^1.1.0",
-    "@tailwindcss/vite": "^4.0.9",
+    "@nuxt/eslint": "^1.2.0",
+    "@tailwindcss/vite": "^4.0.12",
     "@vue/eslint-config-prettier": "^10.2.0",
-    "eslint": "^9.21.0",
-    "tailwindcss": "^4.0.9",
+    "eslint": "^9.22.0",
+    "tailwindcss": "^4.0.12",
     "typescript": "^5.8.2",
     "vue-tsc": "^2.2.8"
   },
-  "packageManager": "pnpm@10.2.0+sha512.0d27364e0139c6aadeed65ada153135e0ca96c8da42123bd50047f961339dc7a758fc2e944b428f52be570d1bd3372455c1c65fa2e7aa0bfbf931190f9552001",
+  "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",
