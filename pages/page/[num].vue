@@ -15,7 +15,7 @@
     >
       <div v-for="item in data?.data" :key="item.content_id">
         <NuxtLink :to="{ name: 'video-id', params: { id: item.content_id } }">
-          <NCard :title="item.title_ja || '无标题'" hoverable size="small">
+          <NCard :title="item.title_ja ?? item.title_en ?? '无标题'" hoverable size="small">
             <template #cover>
               <NImage
                 lazy

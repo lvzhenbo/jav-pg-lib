@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
       content_id: true,
       dvd_id: true,
       title_ja: true,
+      title_en: true,
       release_date: true,
       jacket_full_url: true,
     },

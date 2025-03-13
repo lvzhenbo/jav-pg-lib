@@ -1,17 +1,21 @@
 <template>
-  <div class="flex m-4 justify-center">
-    <div class="w-full xl:w-312 lg:w-248">
+  <div class="flex p-4 justify-center">
+    <div class="w-full xl:w-312 lg:w-248 md:w-184">
+      <NH2>
+        {{ data?.dvd_id ?? data?.content_id }}
+        {{ data?.title_ja ?? data?.title_en ?? '无标题' }}
+      </NH2>
       <NCard v-if="data" hoverable>
-        <NGrid :cols="4" :x-gap="10" :y-gap="10">
-          <NGi :span="3">
+        <div class="grid grid-cols-4 gap-2">
+          <div class="lg:col-span-3 col-span-4">
             <NImage
               lazy
               :src="`https://pics.dmm.co.jp/${data.jacket_full_url}.jpg`"
               class="w-full"
               width="100%"
             />
-          </NGi>
-          <NGi>
+          </div>
+          <div class="lg:col-span-1 col-span-4">
             <NDescriptions label-placement="left" :column="1">
               <NDescriptionsItem label="内容 ID"> {{ data.content_id }} </NDescriptionsItem>
               <NDescriptionsItem label="DVD ID">
@@ -31,9 +35,21 @@
                 {{ data.series?.name_ja ?? '无' }}
               </NDescriptionsItem>
             </NDescriptions>
-          </NGi>
-        </NGrid>
+          </div>
+        </div>
       </NCard>
+      <NH3 prefix="bar"> 预览图 </NH3>
+      <NImageGroup>
+        <NSpace>
+          <NImage
+            v-for="(image, index) in previewImages"
+            :key="index"
+            :src="image"
+            width="128"
+            :preview-src="fullImages[index]"
+          />
+        </NSpace>
+      </NImageGroup>
     </div>
   </div>
 </template>
@@ -43,6 +59,31 @@
 
   const { data } = await useFetch('/api/video/detail', {
     query: { contentId: useRoute().params.id },
+  });
+  const previewImages = computed<string[]>(() => {
+    if (data.value?.gallery_thumb_first) {
+      const urlPart = data.value.gallery_thumb_first.split('-')[0];
+      const total = Number(data.value.gallery_thumb_last?.split('-')[1]);
+      return Array.from(
+        { length: total },
+        (_, index) => `https://pics.dmm.co.jp/${urlPart}-${index + 1}.jpg`,
+      );
+    } else {
+      return [];
+    }
+  });
+  const fullImages = computed<string[]>(() => {
+    if (data.value?.gallery_full_first) {
+      const urlPart = data.value.gallery_full_first.split('-')[0];
+      const total = Number(data.value.gallery_full_last?.split('-')[1]);
+      const isJp = data.value.gallery_full_first === data.value.gallery_thumb_first;
+      return Array.from(
+        { length: total },
+        (_, index) => `https://pics.dmm.co.jp/${urlPart}${isJp ? 'jp' : ''}-${index + 1}.jpg`,
+      );
+    } else {
+      return [];
+    }
   });
 
   onMounted(() => {

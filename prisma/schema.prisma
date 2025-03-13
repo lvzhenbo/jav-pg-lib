@@ -11,6 +11,8 @@ model derived_actor {
   id         Int     @id
   name_kanji String? @db.VarChar
   name_kana  String? @db.VarChar
+
+  videos derived_video_actor[]
 }
 
 model derived_actress {
@@ -115,6 +117,7 @@ model derived_video_actor {
   release_date DateTime? @db.Date
 
   video derived_video @relation(fields: [content_id], references: [content_id])
+  actor derived_actor @relation(fields: [actor_id], references: [id])
 
   @@id([content_id, actor_id])
   @@index([actor_id])
