@@ -17,12 +17,14 @@
         <NuxtLink :to="{ name: 'video-id', params: { id: item.content_id } }">
           <NCard :title="item.title_ja ?? item.title_en ?? '无标题'" hoverable size="small">
             <template #cover>
-              <NImage
-                lazy
-                :src="`https://pics.dmm.co.jp/${item.jacket_full_url}.jpg`"
-                preview-disabled
-                class="w-full"
-              />
+              <ClientOnly>
+                <NImage
+                  lazy
+                  :src="`https://pics.dmm.co.jp/${item.jacket_full_url}.jpg`"
+                  preview-disabled
+                  class="w-full"
+                />
+              </ClientOnly>
             </template>
             <div class="flex justify-between">
               <div>{{ item.dvd_id ?? item.content_id }}</div>
